@@ -27,22 +27,19 @@ class LoginPage extends React.Component {
               <h2>Sign in to Skills Realistic</h2>
               <div className="social-icons">
                 <button type="button" className="social-btn">
-                  <i className="fab fa-facebook-f"></i>
+                  <img src="/icons/facebook.svg" alt="Facebook" />
                 </button>
                 <button type="button" className="social-btn">
-                  <i className="fab fa-google"></i>
-                </button>
-                <button type="button" className="social-btn">
-                  <i className="fab fa-linkedin-in"></i>
+                  <img src="/icons/google.svg" alt="Google" />
                 </button>
               </div>
               <p className="divider">or use your email account:</p>
               <div className="input-field">
-                <i className="fas fa-envelope"></i>
+                <img src="/icons/email.svg" alt="" className="input-icon" />
                 <input type="email" placeholder="Email" />
               </div>
               <div className="input-field">
-                <i className="fas fa-lock"></i>
+                <img src="/icons/lock.svg" alt="" className="input-icon" />
                 <input type="password" placeholder="Password" />
               </div>
               <a href="#" className="forgot-password">Forgot your password?</a>
@@ -54,26 +51,23 @@ class LoginPage extends React.Component {
               <h2>Create Account</h2>
               <div className="social-icons">
                 <button type="button" className="social-btn">
-                  <i className="fab fa-facebook-f"></i>
+                  <img src="/icons/facebook.svg" alt="Facebook" />
                 </button>
                 <button type="button" className="social-btn">
-                  <i className="fab fa-google"></i>
-                </button>
-                <button type="button" className="social-btn">
-                  <i className="fab fa-linkedin-in"></i>
+                  <img src="/icons/google.svg" alt="Google" />
                 </button>
               </div>
               <p className="divider">or use your email for registration:</p>
               <div className="input-field">
-                <i className="fas fa-user"></i>
+                <img src="/icons/user.svg" alt="" className="input-icon" />
                 <input type="text" placeholder="Name" />
               </div>
               <div className="input-field">
-                <i className="fas fa-envelope"></i>
+                <img src="/icons/email.svg" alt="" className="input-icon" />
                 <input type="email" placeholder="Email" />
               </div>
               <div className="input-field">
-                <i className="fas fa-lock"></i>
+                <img src="/icons/lock.svg" alt="" className="input-icon" />
                 <input type="password" placeholder="Password" />
               </div>
               <button type="submit" className="btn">SIGN UP</button>
