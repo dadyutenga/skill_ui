@@ -1,13 +1,46 @@
 import React from 'react';
 import '../styles/LoginPage.css';
+import authService from '../services/authService';
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isSignIn: true,
+      isAuthenticated: false,
+      user: null,
     };
   }
+
+  componentDidMount() {
+    this.checkAuthStatus();
+  }
+
+  checkAuthStatus = async () => {
+    try {
+      const { isAuthenticated, user } = await authService.getAuthStatus();
+      this.setState({ isAuthenticated, user });
+    } catch (error) {
+      console.error('Error checking auth status:', error);
+    }
+  };
+
+  handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await authService.login();
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
+  handleLogout = async () => {
+    try {
+      await authService.logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   toggleSignInSignUp = () => {
     this.setState((prevState) => ({
@@ -16,20 +49,26 @@ class LoginPage extends React.Component {
   };
 
   render() {
-    const { isSignIn } = this.state;
+    const { isSignIn, isAuthenticated, user } = this.state;
+
+    if (isAuthenticated && user) {
+      return (
+        <div className="authenticated-container">
+          <h2>Welcome, {user.name || 'User'}!</h2>
+          <button onClick={this.handleLogout} className="btn">Logout</button>
+        </div>
+      );
+    }
 
     return (
       <div className={`container ${isSignIn ? '' : 'sign-up-mode'}`}>
         <div className="forms-container">
           <div className="signin-signup">
             {/* Sign In Form */}
-            <form className="sign-in-form">
+            <form className="sign-in-form" onSubmit={this.handleLogin}>
               <h2>Sign in to Skills Realistic</h2>
               <div className="social-icons">
-                <button type="button" className="social-btn">
-                  <img src="/icons/facebook.svg" alt="Facebook" />
-                </button>
-                <button type="button" className="social-btn">
+                <button type="button" className="social-btn" onClick={this.handleLogin}>
                   <img src="/icons/google.svg" alt="Google" />
                 </button>
               </div>
@@ -50,10 +89,7 @@ class LoginPage extends React.Component {
             <form className="sign-up-form">
               <h2>Create Account</h2>
               <div className="social-icons">
-                <button type="button" className="social-btn">
-                  <img src="/icons/facebook.svg" alt="Facebook" />
-                </button>
-                <button type="button" className="social-btn">
+                <button type="button" className="social-btn" onClick={this.handleLogin}>
                   <img src="/icons/google.svg" alt="Google" />
                 </button>
               </div>
