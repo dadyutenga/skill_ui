@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Index />} />  {/* Component name changed to Index */}
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
