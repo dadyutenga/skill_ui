@@ -192,17 +192,29 @@ class LoginPage extends React.Component {
           <div className="panel left-panel">
             <div className="content">
               <h3>New here?</h3>
-              <p>Sign up and discover more with us!</p>
-              <button className="btn transparent" onClick={this.toggleSignInSignUp}>SIGN UP</button>
+              <p>Enter your personal details and start your journey with us</p>
+              <button 
+                className="btn transparent" 
+                onClick={() => this.setState({ isSignIn: false })}
+              >
+                Sign Up
+              </button>
             </div>
+            <img src="/img/log.svg" className="image" alt="" />
           </div>
 
           <div className="panel right-panel">
             <div className="content">
               <h3>One of us?</h3>
-              <p>If you already have an account, sign in here.</p>
-              <button className="btn transparent" onClick={this.toggleSignInSignUp}>SIGN IN</button>
+              <p>To keep connected with us please login with your personal info</p>
+              <button 
+                className="btn transparent" 
+                onClick={() => this.setState({ isSignIn: true })}
+              >
+                Sign In
+              </button>
             </div>
+            <img src="/img/register.svg" className="image" alt="" />
           </div>
         </div>
       </div>
