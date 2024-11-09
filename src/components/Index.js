@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import authService from '../services/authService';
 import '../styles/Index.css';
+import communityImage from '../pictures/community.png';
+import individualImage from '../pictures/individual.png';
 
 class Index extends React.Component {
   constructor(props) {
@@ -9,7 +11,7 @@ class Index extends React.Component {
     this.state = {
       user: null,
       loading: true,
-      error: null,
+      error: null
     };
   }
 
@@ -56,11 +58,11 @@ class Index extends React.Component {
           <nav className="sidebar-nav">
             <button className="nav-button">
               <i className="fas fa-user"></i>
-              Profile
+              <span>Profile</span>
             </button>
             <button className="nav-button" onClick={this.handleLogout}>
               <i className="fas fa-sign-out-alt"></i>
-              Logout
+              <span>Logout</span>
             </button>
           </nav>
         </div>
@@ -71,15 +73,25 @@ class Index extends React.Component {
           
           <div className="learning-options">
             <div className="learning-card community">
-              <h2>Community Learning</h2>
+              <img 
+                src={communityImage} 
+                alt="Community Learning" 
+                className="card-image"
+              />
+              <h2 className="text-black">Community Learning</h2>
               <p>
                 Learn together with peers in a collaborative environment. Share knowledge,
-                participate in group discussions, and grow as a team.
+                participate in group discussions.
               </p>
               <button className="action-button">Start Community Learning</button>
             </div>
 
             <div className="learning-card individual">
+              <img 
+                src={individualImage} 
+                alt="Individual Learning" 
+                className="card-image"
+              />
               <h2>Individual Learning</h2>
               <p>
                 Learn at your own pace with personalized content and support. Set your own
