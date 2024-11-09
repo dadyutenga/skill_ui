@@ -71,6 +71,51 @@ const authService = {
       console.error('Auth status error:', error);
       return { isAuthenticated: false, user: null };
     }
+  },
+
+  getProfile: async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/profile', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch profile');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Profile fetch error:', error);
+      throw new Error('Failed to load profile');
+    }
+  },
+
+  updateProfile: async (profileData) => {
+    try {
+      const response = await fetch('http://localhost:8000/api/profile/update', {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(profileData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update profile');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Profile update error:', error);
+      throw new Error('Failed to update profile');
+    }
   }
 };
 

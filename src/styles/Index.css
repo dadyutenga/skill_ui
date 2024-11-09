@@ -145,11 +145,10 @@
 .main-content {
   margin-left: 280px;
   padding: 2rem;
-  flex: 1;
+  min-height: 100vh;
   background-color: var(--white);
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .page-title {
@@ -286,4 +285,64 @@
   margin-bottom: 1rem;
   background-color: #f5f5f5;
   padding: 0.5rem;
+}
+
+.footer {
+  background-color: var(--teal);
+  color: var(--white);
+  padding: 2rem 0;
+  width: calc(100% - 280px);
+  margin-left: 280px;
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-section {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.footer-section h3 {
+  color: var(--white);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.footer-section p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-links a {
+  color: var(--white);
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--gold);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
 }

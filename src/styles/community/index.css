@@ -1,0 +1,114 @@
+.dashboard-container {
+  min-height: 100vh;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-content {
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-title {
+  color: var(--black);
+  font-size: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.learning-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 250px);
+  width: 100%;
+}
+
+.learning-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  opacity: 0;
+  animation: slideIn 0.8s ease forwards;
+}
+
+.card-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+}
+
+.learning-card h2 {
+  color: var(--teal);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.learning-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.recommendation {
+  color: #444;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+.action-button {
+  background: var(--teal);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(50, 166, 156, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(50, 166, 156, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(50, 166, 156, 0);
+  }
+}
