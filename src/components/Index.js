@@ -101,7 +101,13 @@ const Index = () => {
               Learn at your own pace with personalized content and support. Set your own
               schedule and track your individual progress.
             </p>
-            <button className="action-button">Start Individual Learning</button>
+           
+<button 
+  className="action-button"
+  onClick={() => navigate('/individual')}
+>
+  Start Individual Learning
+</button>
           </div>
         </div>
       </div>

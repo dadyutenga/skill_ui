@@ -4,6 +4,7 @@ import LoginPage from './components/LoginPage';
 import Index from './components/Index';
 import Profile from './components/profile';
 import CommunityIndex from './components/community/index';
+import PersonalTraining from './components/Individual/p1';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/dashboard" element={<Index />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/community" element={<CommunityIndex />} />
+        <Route path="/individual" element={<PersonalTraining />} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>

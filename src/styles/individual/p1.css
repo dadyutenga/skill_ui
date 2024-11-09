@@ -1,0 +1,62 @@
+.dashboard-container {
+  display: flex;
+  min-height: 120vh;
+  background-color: var(--white);
+  width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.main-content {
+  padding: 4rem 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-title {
+  text-align: center;
+  color: var(--light-black);
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
+  font-weight: bold;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  position: relative;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--ruby), var(--sapphire), var(--emerald), var(--gold));
+}
+
+.training-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.welcome-section h2 {
+  color: var(--teal);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-section p {
+  color: var(--light-black);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
