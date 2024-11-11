@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/individual/p1.css';
+import '../../styles/Personal/p1.css';
 
 const PersonalTraining = () => {
   const navigate = useNavigate();

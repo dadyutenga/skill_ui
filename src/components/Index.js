@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
 import '../styles/Index.css';
 import communityImage from '../pictures/community.png';
-import individualImage from '../pictures/individual.png';
+import personalImage from '../pictures/individual.png';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -13,11 +13,7 @@ const Index = () => {
     error: null
   });
 
-  useEffect(() => {
-    loadUserData();
-  }, []);
-
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     try {
       const { isAuthenticated, user } = await authService.getAuthStatus();
       if (!isAuthenticated) {
@@ -28,7 +24,11 @@ const Index = () => {
     } catch (error) {
       setState({ user: null, loading: false, error: 'Failed to load user data' });
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    loadUserData();
+  }, [loadUserData]);
 
   const handleLogout = async () => {
     try {
@@ -90,23 +90,23 @@ const Index = () => {
             </button>
           </div>
 
-          <div className="learning-card individual">
+          <div className="learning-card Personal">
             <img 
-              src={individualImage} 
-              alt="Individual Learning" 
+              src={personalImage} 
+              alt="Personal Learning" 
               className="card-image"
             />
-            <h2>Individual Learning</h2>
+            <h2>Personal Learning</h2>
             <p>
               Learn at your own pace with personalized content and support. Set your own
-              schedule and track your individual progress.
+              schedule and track your Personal progress.
             </p>
            
 <button 
   className="action-button"
-  onClick={() => navigate('/individual')}
+  onClick={() => navigate('/Personal')}
 >
-  Start Individual Learning
+  Start Personal Learning
 </button>
           </div>
         </div>

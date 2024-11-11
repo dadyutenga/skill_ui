@@ -10,16 +10,7 @@ class LoginPage extends React.Component {
       isSignIn: true,
       isAuthenticated: false,
       user: null,
-      error: null,
-      signInForm: {
-        email: '',
-        password: ''
-      },
-      signUpForm: {
-        name: '',
-        email: '',
-        password: ''
-      }
+      error: null
     };
   }
 
@@ -61,9 +52,7 @@ class LoginPage extends React.Component {
       await authService.logout();
       this.setState({
         isAuthenticated: false,
-        user: null,
-        signInForm: { email: '', password: '' },
-        signUpForm: { name: '', email: '', password: '' }
+        user: null
       });
       window.location.reload();
     } catch (error) {
@@ -71,31 +60,9 @@ class LoginPage extends React.Component {
     }
   };
 
-  handleSignInChange = (e) => {
-    const { name, value } = e.target;
-    this.setState(prevState => ({
-      signInForm: {
-        ...prevState.signInForm,
-        [name]: value
-      }
-    }));
-  };
-
-  handleSignUpChange = (e) => {
-    const { name, value } = e.target;
-    this.setState(prevState => ({
-      signUpForm: {
-        ...prevState.signUpForm,
-        [name]: value
-      }
-    }));
-  };
-
   toggleSignInSignUp = () => {
     this.setState(prevState => ({
-      isSignIn: !prevState.isSignIn,
-      signInForm: { email: '', password: '' },
-      signUpForm: { name: '', email: '', password: '' }
+      isSignIn: !prevState.isSignIn
     }));
   };
 
@@ -114,75 +81,12 @@ class LoginPage extends React.Component {
             {/* Sign In Form */}
             <form className="sign-in-form" onSubmit={this.handleLogin}>
               <h2>Sign in to Skills Realistic</h2>
-              <div className="social-icons">
-                <button type="button" className="social-btn" onClick={this.handleLogin}>
-                  <img src="/icons/google.svg" alt="Google" />
-                </button>
-              </div>
-              <p className="divider">or use your email account:</p>
-              <div className="input-field">
-                <img src="/icons/email.svg" alt="" className="input-icon" />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={this.state.signInForm.email}
-                  onChange={this.handleSignInChange}
-                />
-              </div>
-              <div className="input-field">
-                <img src="/icons/lock.svg" alt="" className="input-icon" />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.signInForm.password}
-                  onChange={this.handleSignInChange}
-                />
-              </div>
-              <a href="#" className="forgot-password">Forgot your password?</a>
-              <button type="submit" className="btn">SIGN IN</button>
+              <button type="submit" className="btn">SIGN IN </button>
             </form>
 
             {/* Sign Up Form */}
             <form className="sign-up-form" onSubmit={this.handleLogin}>
               <h2>Create Account</h2>
-              <div className="social-icons">
-                <button type="button" className="social-btn" onClick={this.handleLogin}>
-                  <img src="/icons/google.svg" alt="Google" />
-                </button>
-              </div>
-              <p className="divider">or use your email for registration:</p>
-              <div className="input-field">
-                <img src="/icons/user.svg" alt="" className="input-icon" />
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={this.state.signUpForm.name}
-                  onChange={this.handleSignUpChange}
-                />
-              </div>
-              <div className="input-field">
-                <img src="/icons/email.svg" alt="" className="input-icon" />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={this.state.signUpForm.email}
-                  onChange={this.handleSignUpChange}
-                />
-              </div>
-              <div className="input-field">
-                <img src="/icons/lock.svg" alt="" className="input-icon" />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.signUpForm.password}
-                  onChange={this.handleSignUpChange}
-                />
-              </div>
               <button type="submit" className="btn">SIGN UP</button>
             </form>
           </div>

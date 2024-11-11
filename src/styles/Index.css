@@ -195,7 +195,7 @@
   border-left: 5px solid var(--teal);
 }
 
-.learning-card.individual {
+.learning-card.Personal {
   border-left: 5px solid var(--gold);
 }
 
@@ -213,7 +213,7 @@
 }
 
 .learning-card.community h2,
-.learning-card.individual h2 {
+.learning-card.Personal h2 {
   color: var(--black);
 }
 
