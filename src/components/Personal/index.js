@@ -1,31 +1,124 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Personal/p1.css';
+import authService from '../../services/authService'; // Make sure to import your auth service
+import '../../styles/Personal/index.css';
 
 const PersonalTraining = () => {
   const navigate = useNavigate();
+  const [state, setState] = useState({
+    user: null,
+    loading: true,
+    error: null
+  });
+
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  const loadUserData = useCallback(async () => {
+    try {
+      const { isAuthenticated, user } = await authService.getAuthStatus();
+      if (!isAuthenticated) {
+        navigate('/login');
+        return;
+      }
+      setState({ user, loading: false, error: null });
+    } catch (error) {
+      setState({ user: null, loading: false, error: 'Failed to load user data' });
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    loadUserData();
+  }, [loadUserData]);
+
+  const currentDate = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+  if (state.loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (state.error) {
+    return <div>Error: {state.error}</div>;
+  }
 
   return (
     <div className="dashboard-container">
       <div className="sidebar">
         <nav className="sidebar-nav">
-          <button className="nav-button" onClick={() => navigate('/dashboard')}>
-            <i className="fas fa-arrow-left"></i>
-            <span>Back</span>
+          <div className="logo-container">
+            <div className="skillk-logo">
+              <img src="/logo1.jpg" alt="Company Logo" className="logo-image" />
+              <span>Skill Realiistic</span>
+            </div>
+          </div>
+          <div className="nav-items">
+            <button className="nav-item active">
+              <i className="fas fa-th"></i>
+              <span>Dashboard</span>
             </button>
+            <button className="nav-item">
+              <i className="fas fa-book"></i>
+              <span>Courses</span>
+            </button>
+            <button className="nav-item">
+              <i className="fas fa-comment"></i>
+              <span>Messages</span>
+            </button>
+            <button className="nav-item">
+              <i className="fas fa-chart-line"></i>
+              <span>Analytics</span>
+            </button>
+            <button className="nav-item">
+              <i className="fas fa-credit-card"></i>
+              <span>Payments</span>
+            </button>
+            <div className="bottom-nav">
+              <button className="nav-item">
+                <i className="fas fa-question-circle"></i>
+                <span>Support</span>
+              </button>
+              <button className="nav-item">
+                <i className="fas fa-cog"></i>
+                <span>Settings</span>
+              </button>
+              <button className="nav-item logout-item" onClick={handleLogout}>
+                <i className="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
         </nav>
       </div>
 
       <div className="main-content">
-        <h1 className="page-title">Personal Training</h1>
-        
-        <div className="training-content">
-          <div className="welcome-section">
-            <h2>Welcome to Your Personal Training Journey</h2>
-            <p>Here you can track your progress and access personalized learning materials.</p>
+        <header className="content-header">
+          <div className="header-date">
+            <h2>{formattedDate.split(',')[0]}</h2>
+            <p>{formattedDate.split(',').slice(1).join(',')}</p>
           </div>
-          
-          {/* Add your personal training content here */}
+          <button className="notification-btn">
+            <i className="fas fa-bell"></i>
+          </button>
+          <div className="user-profile">
+            <img 
+              src={state.user?.profileImage || '/default-profile.jpg'} 
+              alt={state.user?.name || 'Profile'} 
+              className="profile-image" 
+            />
+            <span className="user-name">{state.user?.name}</span>
+          </div>
+        </header>
+
+        <div className="dashboard-content">
+          {/* Middle content cleared */}
         </div>
       </div>
     </div>

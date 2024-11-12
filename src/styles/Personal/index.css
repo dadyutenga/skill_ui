@@ -1,0 +1,247 @@
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.sidebar {
+  width: 250px;
+  background: #1a1a1a;
+  color: white;
+  padding: 1.5rem;
+}
+
+.logo-container {
+  padding: 1rem;
+  text-align: center;
+}
+
+.skillk-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.logo-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.skillk-logo span {
+  font-size: 1.2rem;
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  color: #888;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-item.active {
+  background: #333;
+  color: white;
+}
+
+.nav-item:hover {
+  background: #333;
+  color: white;
+}
+
+.bottom-nav {
+  margin-top: auto;
+  border-top: 1px solid #333;
+  padding-top: 1rem;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.content-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--white);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(100% - 250px);
+  gap: 1.5rem;
+}
+
+.header-date {
+  margin-right: auto;
+  text-align: left;
+}
+
+.header-date h2 {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--black);
+}
+
+.header-date p {
+  color: #666;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.notification-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--black);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+  overflow: hidden;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-name {
+  color: var(--black);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.logout-btn {
+  padding: 0.5rem 1rem;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #555;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.course-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.course-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.course-info {
+  padding: 1rem;
+}
+
+.level {
+  background: #f0f0f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
+
+.instructor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.instructor img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.courses-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.course-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  margin: 0.5rem 0;
+}
+
+.progress {
+  height: 100%;
+  background: #4a90e2;
+  border-radius: 3px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header button {
+  color: #4a90e2;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
