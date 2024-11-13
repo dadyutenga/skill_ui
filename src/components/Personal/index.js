@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../../services/authService'; // Make sure to import your auth service
+import authService from '../../services/authService';
+import courseService from '../../services/courseService';
 import '../../styles/Personal/index.css';
 
 const PersonalTraining = () => {
@@ -10,15 +11,8 @@ const PersonalTraining = () => {
     loading: true,
     error: null
   });
-
-  const handleLogout = async () => {
-    try {
-      await authService.logout();
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
+  const [courses, setCourses] = useState([]);
+  const [coursesLoading, setCoursesLoading] = useState(true);
 
   const loadUserData = useCallback(async () => {
     try {
@@ -33,15 +27,33 @@ const PersonalTraining = () => {
     }
   }, [navigate]);
 
+  const loadCourses = useCallback(async () => {
+    try {
+      setCoursesLoading(true);
+      const response = await courseService.getTopCourses();
+      setCourses(response.data);
+    } catch (error) {
+      console.error('Failed to load courses:', error);
+    } finally {
+      setCoursesLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     loadUserData();
-  }, [loadUserData]);
+    loadCourses();
+  }, [loadUserData, loadCourses]);
 
-  const currentDate = new Date();
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
-  if (state.loading) {
+  if (state.loading || coursesLoading) {
     return <div>Loading...</div>;
   }
 
@@ -56,7 +68,7 @@ const PersonalTraining = () => {
           <div className="logo-container">
             <div className="skillk-logo">
               <img src="/logo1.jpg" alt="Company Logo" className="logo-image" />
-              <span>Skill Realiistic</span>
+              <span>Skill Realistic</span>
             </div>
           </div>
           <div className="nav-items">
@@ -101,8 +113,8 @@ const PersonalTraining = () => {
       <div className="main-content">
         <header className="content-header">
           <div className="header-date">
-            <h2>{formattedDate.split(',')[0]}</h2>
-            <p>{formattedDate.split(',').slice(1).join(',')}</p>
+            <h2>{new Date().toLocaleDateString('en-US', { weekday: 'long' })}</h2>
+            <p>{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
           </div>
           <button className="notification-btn">
             <i className="fas fa-bell"></i>
@@ -118,7 +130,44 @@ const PersonalTraining = () => {
         </header>
 
         <div className="dashboard-content">
-          {/* Middle content cleared */}
+          <div className="courses-section">
+            <div className="section-header">
+              <h2>Top courses you may like</h2>
+              <button>View all</button>
+            </div>
+            
+            <div className="courses-grid">
+              {courses.map(course => (
+                <div key={course.id} className="course-card">
+                  <div className="course-image">
+                    <img src={course.image_url} alt={course.title} />
+                    <button className="bookmark-btn">
+                      <i className="far fa-bookmark"></i>
+                    </button>
+                  </div>
+                  
+                  <div className="course-info">
+                    <div className="course-level">{course.level}</div>
+                    <h3 className="course-title">{course.title}</h3>
+                    
+                    <div className="course-stats">
+                      <span className="students">
+                        <i className="fas fa-user"></i> {course.student_count}
+                      </span>
+                      <span className="rating">
+                        <i className="fas fa-star"></i> {course.rating}
+                      </span>
+                    </div>
+                    
+                    <div className="instructor">
+                      <img src={course.instructor.image_url} alt={course.instructor.name} />
+                      <span>{course.instructor.name}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
