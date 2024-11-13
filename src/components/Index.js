@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
-import '../styles/Index.css';
+import '../styles/Index9.css';
 import communityImage from '../pictures/community.png';
 import personalImage from '../pictures/individual.png';
 
