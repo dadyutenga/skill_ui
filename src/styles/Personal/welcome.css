@@ -1,0 +1,129 @@
+/* Import the shared styles */
+@import './course.css';
+
+/* Welcome Page Specific Styles */
+.welcome-content {
+  padding: 24px;
+}
+
+.welcome-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.welcome-header h1 {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.welcome-header p {
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+/* Quick Stats Section */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card i {
+  font-size: 2rem;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.stat-info h3 {
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.stat-info p {
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+/* Getting Started Section */
+.getting-started {
+  margin-top: 48px;
+}
+
+.getting-started h2 {
+  font-size: 1.5rem;
+  color: #1a1a1a;
+  margin-bottom: 24px;
+}
+
+.action-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.action-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.action-card i {
+  font-size: 2rem;
+  color: #4f46e5;
+  margin-bottom: 16px;
+}
+
+.action-card h3 {
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.action-card p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .quick-stats,
+  .action-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .quick-stats,
+  .action-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-header h1 {
+    font-size: 2rem;
+  }
+}

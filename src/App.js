@@ -5,6 +5,8 @@ import Index from './components/Index';
 import Profile from './components/profile';
 import CommunityIndex from './components/community/index';
 import PersonalTraining from './components/Personal/index';
+import CourseView from './components/Personal/course';
+import Welcome from './components/Personal/welcome';
 import './App.css';
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
         <Route path="/community" element={<CommunityIndex />} />
         <Route path="/Personal" element={<PersonalTraining />} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/courses" element={<CourseView />} />
+        <Route path="/welcome" element={<Welcome />} />
       </Routes>
     </Router>
   );

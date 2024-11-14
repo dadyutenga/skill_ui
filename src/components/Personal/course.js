@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
-import courseService from '../../services/courseService';
 import '../../styles/Personal/index.css';
 
-const PersonalTraining = () => {
+const CourseView = () => {
   const navigate = useNavigate();
   const [state, setState] = useState({
     user: null,
     loading: true,
     error: null
   });
-  const [courses, setCourses] = useState([]);
-  const [coursesLoading, setCoursesLoading] = useState(true);
 
   const loadUserData = useCallback(async () => {
     try {
@@ -27,22 +24,9 @@ const PersonalTraining = () => {
     }
   }, [navigate]);
 
-  const loadCourses = useCallback(async () => {
-    try {
-      setCoursesLoading(true);
-      const response = await courseService.getTopCourses();
-      setCourses(response.data);
-    } catch (error) {
-      console.error('Failed to load courses:', error);
-    } finally {
-      setCoursesLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
     loadUserData();
-    loadCourses();
-  }, [loadUserData, loadCourses]);
+  }, [loadUserData]);
 
   const handleLogout = async () => {
     try {
@@ -53,7 +37,7 @@ const PersonalTraining = () => {
     }
   };
 
-  if (state.loading || coursesLoading) {
+  if (state.loading) {
     return <div>Loading...</div>;
   }
 
@@ -72,11 +56,11 @@ const PersonalTraining = () => {
             </div>
           </div>
           <div className="nav-items">
-            <button className="nav-item active">
+            <button className="nav-item" onClick={() => navigate('/personal')}>
               <i className="fas fa-th"></i>
               <span>Dashboard</span>
             </button>
-            <button className="nav-item" onClick={() => navigate('/courses')}>
+            <button className="nav-item active">
               <i className="fas fa-book"></i>
               <span>Courses</span>
             </button>
@@ -130,48 +114,13 @@ const PersonalTraining = () => {
         </header>
 
         <div className="dashboard-content">
-          <div className="courses-section">
-            <div className="section-header">
-              <h2>Top courses you may like</h2>
-              <button>View all</button>
-            </div>
-            
-            <div className="courses-grid">
-              {courses.map(course => (
-                <div key={course.id} className="course-card">
-                  <div className="course-image">
-                    <img src={course.image_url} alt={course.title} />
-                    <button className="bookmark-btn">
-                      <i className="far fa-bookmark"></i>
-                    </button>
-                  </div>
-                  
-                  <div className="course-info">
-                    <div className="course-level">{course.level}</div>
-                    <h3 className="course-title">{course.title}</h3>
-                    
-                    <div className="course-stats">
-                      <span className="students">
-                        <i className="fas fa-user"></i> {course.student_count}
-                      </span>
-                      <span className="rating">
-                        <i className="fas fa-star"></i> {course.rating}
-                      </span>
-                    </div>
-                    
-                    <div className="instructor">
-                      <img src={course.instructor.image_url} alt={course.instructor.name} />
-                      <span>{course.instructor.name}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Add your course page specific content here */}
+          <h1>Courses Page</h1>
+          {/* Add your course listing or details here */}
         </div>
       </div>
     </div>
   );
 };
 
-export default PersonalTraining;
+export default CourseView;

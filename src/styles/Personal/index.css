@@ -5,10 +5,10 @@
 }
 
 .sidebar {
-  width: 250px;
-  background: #1a1a1a;
-  color: white;
-  padding: 1.5rem;
+  width: 280px;
+  background: #1a1a1a !important;
+  color: white !important;
+  padding: 20px;
 }
 
 .logo-container {
@@ -34,6 +34,7 @@
 
 .skillk-logo span {
   font-size: 1.2rem;
+  color: white !important;
 }
 
 .nav-items {
@@ -47,7 +48,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1rem;
-  color: #888;
+  color: #888 !important;
   background: none;
   border: none;
   border-radius: 8px;
@@ -56,18 +57,18 @@
 }
 
 .nav-item.active {
-  background: #333;
-  color: white;
+  background: #333 !important;
+  color: white !important;
 }
 
 .nav-item:hover {
-  background: #333;
-  color: white;
+  background: #333 !important;
+  color: white !important;
 }
 
 .bottom-nav {
   margin-top: auto;
-  border-top: 1px solid #333;
+  border-top: 1px solid #333 !important;
   padding-top: 1rem;
 }
 
@@ -396,4 +397,12 @@
   color: #6366f1;
   font-size: 0.875rem;
   font-weight: 500;
+}
+
+.logout-item {
+  color: #dc2626 !important;
+}
+
+.logout-item:hover {
+  background: #333 !important;
 }
