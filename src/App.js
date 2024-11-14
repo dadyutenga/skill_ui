@@ -7,6 +7,7 @@ import CommunityIndex from './components/community/index';
 import PersonalTraining from './components/Personal/index';
 import CourseView from './components/Personal/course';
 import Welcome from './components/Personal/welcome';
+import Platform from './components/Personal/platform';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/courses" element={<CourseView />} />
         <Route path="/welcome" element={<Welcome />} />
+        <Route path="/platform" element={<Platform />} />
       </Routes>
     </Router>
   );

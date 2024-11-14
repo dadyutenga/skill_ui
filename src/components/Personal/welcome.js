@@ -58,23 +58,7 @@ const Welcome = () => {
           <div className="nav-items">
             <button className="nav-item active">
               <i className="fas fa-th"></i>
-              <span>Dashboard</span>
-            </button>
-            <button className="nav-item" onClick={() => navigate('/courses')}>
-              <i className="fas fa-book"></i>
-              <span>Courses</span>
-            </button>
-            <button className="nav-item">
-              <i className="fas fa-comment"></i>
-              <span>Messages</span>
-            </button>
-            <button className="nav-item">
-              <i className="fas fa-chart-line"></i>
-              <span>Analytics</span>
-            </button>
-            <button className="nav-item">
-              <i className="fas fa-credit-card"></i>
-              <span>Payments</span>
+              <span>Welcome</span>
             </button>
             <div className="bottom-nav">
               <button className="nav-item">
@@ -146,7 +130,7 @@ const Welcome = () => {
           <div className="getting-started">
             <h2>Getting Started</h2>
             <div className="action-cards">
-              <div className="action-card" onClick={() => navigate('/courses')}>
+              <div className="action-card" onClick={() => navigate('/Personal')}>
                 <i className="fas fa-compass"></i>
                 <h3>Explore Courses</h3>
                 <p>Browse our collection of courses</p>
@@ -156,11 +140,13 @@ const Welcome = () => {
                 <h3>Complete Profile</h3>
                 <p>Add your interests and goals</p>
               </div>
-              <div className="action-card">
-                <i className="fas fa-users"></i>
-                <h3>Join Community</h3>
-                <p>Connect with fellow learners</p>
+
+              <div className="action-card" onClick={() => navigate('/platform')}>
+                <i className="fas fa-user-graduate"></i>
+                <h3>Personalized Learning</h3>
+                <p>Get personalized course recommendations</p>
               </div>
+
             </div>
           </div>
         </div>
