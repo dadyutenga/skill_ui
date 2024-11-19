@@ -10,6 +10,13 @@ const CourseView = () => {
     loading: true,
     error: null
   });
+  const [courses, setCourses] = useState([]);
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+    itemsPerPage: 8
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadUserData = useCallback(async () => {
     try {
@@ -37,6 +44,35 @@ const CourseView = () => {
     }
   };
 
+  const fetchCourses = useCallback(async (page) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/users/${state.user?.id}/enrolled-courses?page=${page}&limit=${pagination.itemsPerPage}`);
+      const data = await response.json();
+      
+      setCourses(data.courses);
+      setPagination(prev => ({
+        ...prev,
+        currentPage: page,
+        totalPages: Math.ceil(data.total / pagination.itemsPerPage)
+      }));
+    } catch (error) {
+      console.error('Failed to fetch enrolled courses:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [pagination.itemsPerPage, state.user?.id]);
+
+  useEffect(() => {
+    fetchCourses(pagination.currentPage);
+  }, [fetchCourses, pagination.currentPage]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= pagination.totalPages) {
+      setPagination(prev => ({ ...prev, currentPage: newPage }));
+    }
+  };
+
   if (state.loading) {
     return <div>Loading...</div>;
   }
@@ -60,36 +96,10 @@ const CourseView = () => {
               <i className="fas fa-th"></i>
               <span>Dashboard</span>
             </button>
-            <button className="nav-item active">
-              <i className="fas fa-book"></i>
-              <span>Courses</span>
+            <button className="nav-item logout-item" onClick={handleLogout}>
+              <i className="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
             </button>
-            <button className="nav-item">
-              <i className="fas fa-comment"></i>
-              <span>Messages</span>
-            </button>
-            <button className="nav-item">
-              <i className="fas fa-chart-line"></i>
-              <span>Analytics</span>
-            </button>
-            <button className="nav-item">
-              <i className="fas fa-credit-card"></i>
-              <span>Payments</span>
-            </button>
-            <div className="bottom-nav">
-              <button className="nav-item">
-                <i className="fas fa-question-circle"></i>
-                <span>Support</span>
-              </button>
-              <button className="nav-item">
-                <i className="fas fa-cog"></i>
-                <span>Settings</span>
-              </button>
-              <button className="nav-item logout-item" onClick={handleLogout}>
-                <i className="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-              </button>
-            </div>
           </div>
         </nav>
       </div>
@@ -114,9 +124,64 @@ const CourseView = () => {
         </header>
 
         <div className="dashboard-content">
-          {/* Add your course page specific content here */}
-          <h1>Courses Page</h1>
-          {/* Add your course listing or details here */}
+          <h1>My Enrolled Courses</h1>
+          
+          {isLoading ? (
+            <div className="loading-spinner">Loading your courses...</div>
+          ) : (
+            <>
+              <div className="courses-grid">
+                {courses.map((course) => (
+                  <div key={course.id} className="course-card">
+                    <div className="course-image">
+                      <img src={course.imageUrl} alt={course.title} />
+                    </div>
+                    <div className="course-info">
+                      <div className="course-level">{course.level}</div>
+                      <h3 className="course-title">{course.title}</h3>
+                      <div className="course-stats">
+                        <span><i className="fas fa-clock"></i> {course.progress || '0'}% Complete</span>
+                        <button 
+                          className="continue-btn"
+                          onClick={() => navigate(`/course/${course.id}/learn`)}
+                        >
+                          Continue Learning
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pagination">
+                <button 
+                  onClick={() => handlePageChange(pagination.currentPage - 1)}
+                  disabled={pagination.currentPage === 1}
+                  className="pagination-btn"
+                >
+                  <i className="fas fa-chevron-left"></i>
+                </button>
+                
+                {[...Array(pagination.totalPages)].map((_, index) => (
+                  <button
+                    key={index + 1}
+                    onClick={() => handlePageChange(index + 1)}
+                    className={`pagination-btn ${pagination.currentPage === index + 1 ? 'active' : ''}`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+
+                <button 
+                  onClick={() => handlePageChange(pagination.currentPage + 1)}
+                  disabled={pagination.currentPage === pagination.totalPages}
+                  className="pagination-btn"
+                >
+                  <i className="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

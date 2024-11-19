@@ -84,28 +84,10 @@ const PersonalTraining = () => {
               <i className="fas fa-comment"></i>
               <span>Messages</span>
             </button>
-            <button className="nav-item">
-              <i className="fas fa-chart-line"></i>
-              <span>Analytics</span>
+            <button className="nav-item logout-item" onClick={handleLogout}>
+              <i className="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
             </button>
-            <button className="nav-item">
-              <i className="fas fa-credit-card"></i>
-              <span>Payments</span>
-            </button>
-            <div className="bottom-nav">
-              <button className="nav-item">
-                <i className="fas fa-question-circle"></i>
-                <span>Support</span>
-              </button>
-              <button className="nav-item">
-                <i className="fas fa-cog"></i>
-                <span>Settings</span>
-              </button>
-              <button className="nav-item logout-item" onClick={handleLogout}>
-                <i className="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-              </button>
-            </div>
           </div>
         </nav>
       </div>
