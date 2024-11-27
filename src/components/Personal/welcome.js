@@ -135,7 +135,11 @@ const Welcome = () => {
                 <h3>Explore Courses</h3>
                 <p>Browse our collection of courses</p>
               </div>
-              <div className="action-card">
+              <div 
+                className="action-card" 
+                onClick={() => navigate('/profile')} 
+                style={{ cursor: 'pointer' }}
+              >
                 <i className="fas fa-user-edit"></i>
                 <h3>Complete Profile</h3>
                 <p>Add your interests and goals</p>

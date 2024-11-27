@@ -56,10 +56,6 @@ const Index = () => {
         </div>
         
         <nav className="sidebar-nav">
-          <button className="nav-button" onClick={() => navigate('/profile')}>
-            <i className="fas fa-user"></i>
-            <span>Profile</span>
-          </button>
           <button className="nav-button" onClick={handleLogout}>
             <i className="fas fa-sign-out-alt"></i>
             <span>Logout</span>

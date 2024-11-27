@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/profile.css';
-import authService from '../services/authService';
+import profileService from '../services/profileService';
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -9,7 +9,9 @@ const Profile = () => {
     picture: '',
     bio: '',
     phone: '',
-    location: ''
+    location: '',
+    age: '',
+    specialization: ''
   });
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -21,11 +23,11 @@ const Profile = () => {
 
   const loadProfile = async () => {
     try {
-      const userData = await authService.getProfile();
+      const userData = await profileService.getProfile();
       setProfile(userData);
       setLoading(false);
     } catch (err) {
-      setError('Failed to load profile');
+      setError(err.message);
       setLoading(false);
     }
   };
@@ -55,10 +57,10 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authService.updateProfile(profile);
+      await profileService.updateProfile(profile);
       setIsEditing(false);
     } catch (err) {
-      setError('Failed to update profile');
+      setError(err.message);
     }
   };
 
@@ -141,6 +143,29 @@ const Profile = () => {
               onChange={handleInputChange}
               disabled={!isEditing}
               rows="4"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Age</label>
+            <input
+              type="number"
+              name="age"
+              value={profile.age || ''}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              min="0"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Specialization</label>
+            <input
+              type="text"
+              name="specialization"
+              value={profile.specialization || ''}
+              onChange={handleInputChange}
+              disabled={!isEditing}
             />
           </div>
 
