@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/profile.css';
 import profileService from '../services/profileService';
+import Select from 'react-select';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -18,6 +19,81 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const specializations = [
+    // Technology
+    { value: 'frontend', label: 'Frontend Development', category: 'Tech' },
+    { value: 'backend', label: 'Backend Development', category: 'Tech' },
+    { value: 'fullstack', label: 'Full Stack Development', category: 'Tech' },
+    { value: 'mobile', label: 'Mobile Development', category: 'Tech' },
+    { value: 'devops', label: 'DevOps', category: 'Tech' },
+    { value: 'ai_ml', label: 'AI/Machine Learning', category: 'Tech' },
+    { value: 'cybersecurity', label: 'Cybersecurity', category: 'Tech' },
+    
+    // Business
+    { value: 'project_management', label: 'Project Management', category: 'Business' },
+    { value: 'business_analysis', label: 'Business Analysis', category: 'Business' },
+    { value: 'digital_marketing', label: 'Digital Marketing', category: 'Business' },
+    { value: 'product_management', label: 'Product Management', category: 'Business' },
+    { value: 'business_strategy', label: 'Business Strategy', category: 'Business' },
+    
+    // Finance
+    { value: 'accounting', label: 'Accounting', category: 'Finance' },
+    { value: 'investment', label: 'Investment Analysis', category: 'Finance' },
+    { value: 'financial_planning', label: 'Financial Planning', category: 'Finance' },
+    { value: 'risk_management', label: 'Risk Management', category: 'Finance' },
+    { value: 'blockchain_finance', label: 'Blockchain & Crypto', category: 'Finance' },
+    
+    // Entrepreneurship
+    { value: 'startup_founder', label: 'Startup Founder', category: 'Entrepreneurship' },
+    { value: 'business_development', label: 'Business Development', category: 'Entrepreneurship' },
+    { value: 'innovation', label: 'Innovation & Strategy', category: 'Entrepreneurship' },
+    { value: 'social_entrepreneurship', label: 'Social Entrepreneurship', category: 'Entrepreneurship' },
+    { value: 'ecommerce', label: 'E-commerce', category: 'Entrepreneurship' }
+  ];
+
+  const countries = [
+    // East Africa
+    { value: 'TZ', label: 'Tanzania', code: '+255' },
+    { value: 'KE', label: 'Kenya', code: '+254' },
+    { value: 'UG', label: 'Uganda', code: '+256' },
+    { value: 'RW', label: 'Rwanda', code: '+250' },
+    
+    // West Africa
+    { value: 'NG', label: 'Nigeria', code: '+234' },
+    { value: 'GH', label: 'Ghana', code: '+233' },
+    { value: 'SN', label: 'Senegal', code: '+221' },
+    
+    // Southern Africa
+    { value: 'ZA', label: 'South Africa', code: '+27' },
+    { value: 'BW', label: 'Botswana', code: '+267' },
+    { value: 'ZM', label: 'Zambia', code: '+260' },
+    
+    // Other major countries
+    { value: 'US', label: 'United States', code: '+1' },
+    { value: 'GB', label: 'United Kingdom', code: '+44' },
+    { value: 'IN', label: 'India', code: '+91' },
+  ];
+
+  // Group specializations by category for the Select component
+  const groupedSpecializations = [
+    {
+      label: 'Technology',
+      options: specializations.filter(spec => spec.category === 'Tech')
+    },
+    {
+      label: 'Business',
+      options: specializations.filter(spec => spec.category === 'Business')
+    },
+    {
+      label: 'Finance',
+      options: specializations.filter(spec => spec.category === 'Finance')
+    },
+    {
+      label: 'Entrepreneurship',
+      options: specializations.filter(spec => spec.category === 'Entrepreneurship')
+    }
+  ];
 
   useEffect(() => {
     loadProfile();
@@ -76,7 +152,25 @@ const Profile = () => {
   };
 
   const handleBack = () => {
-    navigate('/');
+    navigate('/welcome');
+  };
+
+  const handleSpecializationChange = (selectedOptions) => {
+    setProfile(prev => ({
+      ...prev,
+      specialization: selectedOptions.map(option => option.value).join(', ')
+    }));
+  };
+
+  const handleCountryChange = (selectedOption) => {
+    if (selectedOption) {
+      setProfile(prev => ({
+        ...prev,
+        location: selectedOption.label,
+        // Preserve existing phone number digits but update country code
+        phone: selectedOption.code + (prev.phone?.replace(/^\+\d+/, '') || '')
+      }));
+    }
   };
 
   if (loading) return <div className="loading">Loading...</div>;
@@ -146,18 +240,22 @@ const Profile = () => {
               onChange={handleInputChange}
               disabled={!isEditing}
               className={isEditing ? 'editable' : ''}
+              placeholder="Enter phone number"
             />
           </div>
 
           <div className="form-group">
             <label>Location</label>
-            <input
-              type="text"
-              name="location"
-              value={profile.location || ''}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              className={isEditing ? 'editable' : ''}
+            <Select
+              options={countries}
+              value={countries.find(country => country.label === profile.location)}
+              onChange={handleCountryChange}
+              isDisabled={!isEditing}
+              className={isEditing ? 'select-editable' : ''}
+              placeholder="Search and select your country..."
+              isClearable
+              isSearchable
+              classNamePrefix="select"
             />
           </div>
 
@@ -188,13 +286,18 @@ const Profile = () => {
 
           <div className="form-group">
             <label>Specialization</label>
-            <input
-              type="text"
-              name="specialization"
-              value={profile.specialization || ''}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              className={isEditing ? 'editable' : ''}
+            <Select
+              isMulti
+              options={groupedSpecializations}
+              value={profile.specialization?.split(', ').map(spec => 
+                specializations.find(s => s.value === spec)
+              ).filter(Boolean)}
+              onChange={handleSpecializationChange}
+              isDisabled={!isEditing}
+              className={isEditing ? 'select-editable' : ''}
+              placeholder="Search and select specializations..."
+              isSearchable
+              classNamePrefix="select"
             />
           </div>
 

@@ -237,3 +237,88 @@
 .back-button:active {
   transform: translateY(0);
 }
+
+/* Add these new styles */
+.select-editable .select__control {
+  background-color: #ffffff;
+  border-color: #ddd;
+  cursor: text;
+  opacity: 1;
+}
+
+.select-editable .select__control:hover {
+  border-color: var(--teal);
+}
+
+.select-editable .select__control--is-focused {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.1);
+}
+
+/* Style for disabled state */
+.select__control--is-disabled {
+  background-color: #f5f5f5 !important;
+  border-color: transparent !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+/* Select styles */
+.select__control {
+  min-height: 42px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+}
+
+.select__control--is-focused {
+  border-color: var(--teal) !important;
+  box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.1) !important;
+}
+
+.select__menu {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.select__option {
+  padding: 10px 12px !important;
+}
+
+.select__option--is-focused {
+  background-color: rgba(0, 128, 128, 0.1) !important;
+}
+
+.select__option--is-selected {
+  background-color: var(--teal) !important;
+}
+
+.select__multi-value {
+  background-color: rgba(0, 128, 128, 0.1) !important;
+  border-radius: 4px !important;
+}
+
+.select__multi-value__label {
+  color: var(--teal) !important;
+}
+
+.select__multi-value__remove:hover {
+  background-color: var(--teal) !important;
+  color: white !important;
+}
+
+/* Disabled state */
+.select__control--is-disabled {
+  background-color: #f5f5f5 !important;
+  border-color: transparent !important;
+  opacity: 0.7 !important;
+}
+
+/* Search input */
+.select__input-container {
+  color: var(--black) !important;
+}
+
+/* Placeholder */
+.select__placeholder {
+  color: #999 !important;
+}
