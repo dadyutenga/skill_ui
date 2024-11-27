@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/profile.css';
 import profileService from '../services/profileService';
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [profile, setProfile] = useState({
     name: '',
     email: '',
@@ -54,6 +56,15 @@ const Profile = () => {
     }
   };
 
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    loadProfile();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -64,19 +75,30 @@ const Profile = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate('/');
+  };
+
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="profile-container">
       <div className="profile-header">
+        <button 
+          type="button" 
+          className="back-button"
+          onClick={handleBack}
+        >
+          ← Back
+        </button>
         <h1>Profile Settings</h1>
       </div>
 
       <div className="profile-content">
         <div className="profile-image-section">
           <div className="profile-image">
-            <img src={profile.picture} alt={profile.name} />
+            <img src={profile.picture || 'default-avatar.png'} alt={profile.name} />
             {isEditing && (
               <label className="image-upload">
                 <input 
@@ -90,7 +112,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="profile-form">
+        <form className="profile-form" onSubmit={(e) => e.preventDefault()}>
           <div className="form-group">
             <label>Name</label>
             <input
@@ -98,7 +120,8 @@ const Profile = () => {
               name="name"
               value={profile.name}
               onChange={handleInputChange}
-              disabled={!isEditing}
+              readOnly={!isEditing}
+              className={isEditing ? 'editable' : ''}
             />
           </div>
 
@@ -109,7 +132,8 @@ const Profile = () => {
               name="email"
               value={profile.email}
               onChange={handleInputChange}
-              disabled={!isEditing}
+              readOnly={!isEditing}
+              className={isEditing ? 'editable' : ''}
             />
           </div>
 
@@ -118,9 +142,10 @@ const Profile = () => {
             <input
               type="tel"
               name="phone"
-              value={profile.phone}
+              value={profile.phone || ''}
               onChange={handleInputChange}
               disabled={!isEditing}
+              className={isEditing ? 'editable' : ''}
             />
           </div>
 
@@ -129,9 +154,10 @@ const Profile = () => {
             <input
               type="text"
               name="location"
-              value={profile.location}
+              value={profile.location || ''}
               onChange={handleInputChange}
               disabled={!isEditing}
+              className={isEditing ? 'editable' : ''}
             />
           </div>
 
@@ -139,9 +165,10 @@ const Profile = () => {
             <label>Bio</label>
             <textarea
               name="bio"
-              value={profile.bio}
+              value={profile.bio || ''}
               onChange={handleInputChange}
               disabled={!isEditing}
+              className={isEditing ? 'editable' : ''}
               rows="4"
             />
           </div>
@@ -154,6 +181,7 @@ const Profile = () => {
               value={profile.age || ''}
               onChange={handleInputChange}
               disabled={!isEditing}
+              className={isEditing ? 'editable' : ''}
               min="0"
             />
           </div>
@@ -166,6 +194,7 @@ const Profile = () => {
               value={profile.specialization || ''}
               onChange={handleInputChange}
               disabled={!isEditing}
+              className={isEditing ? 'editable' : ''}
             />
           </div>
 
@@ -174,19 +203,23 @@ const Profile = () => {
               <button 
                 type="button" 
                 className="edit-button"
-                onClick={() => setIsEditing(true)}
+                onClick={handleEdit}
               >
                 Edit Profile
               </button>
             ) : (
               <>
-                <button type="submit" className="save-button">
+                <button 
+                  type="button" 
+                  className="save-button"
+                  onClick={handleSubmit}
+                >
                   Save Changes
                 </button>
                 <button 
-                  type="button" 
+                  type="button"
                   className="cancel-button"
-                  onClick={() => setIsEditing(false)}
+                  onClick={handleCancel}
                 >
                   Cancel
                 </button>

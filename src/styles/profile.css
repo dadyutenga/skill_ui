@@ -7,6 +7,9 @@
 
 .profile-header {
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .profile-header h1 {
@@ -54,6 +57,11 @@
   border-radius: 20px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.image-upload:hover {
+  background-color: var(--dark-teal);
 }
 
 .image-upload input {
@@ -75,26 +83,57 @@
 .form-group label {
   color: var(--black);
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
+/* Updated input/textarea styles */
 .form-group input,
 .form-group textarea {
   padding: 0.8rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f5f5f5;
 }
 
+/* Styles for disabled state */
 .form-group input:disabled,
 .form-group textarea:disabled {
-  background: #f5f5f5;
+  background-color: #f5f5f5;
+  border-color: transparent;
   cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Styles for editable state */
+.form-group input.editable,
+.form-group textarea.editable {
+  background-color: #ffffff;
+  border-color: #ddd;
+  cursor: text;
+  opacity: 1;
+}
+
+/* Focus styles for editable fields */
+.form-group input.editable:focus,
+.form-group textarea.editable:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.1);
+  outline: none;
+}
+
+/* Hover styles for editable fields */
+.form-group input.editable:hover,
+.form-group textarea.editable:hover {
+  border-color: var(--teal);
 }
 
 .profile-actions {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  justify-content: flex-end;
 }
 
 .edit-button,
@@ -105,7 +144,8 @@
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .edit-button,
@@ -114,9 +154,20 @@
   color: var(--white);
 }
 
+.edit-button:hover,
+.save-button:hover {
+  background: var(--dark-teal);
+  transform: translateY(-1px);
+}
+
 .cancel-button {
   background: #f5f5f5;
   color: var(--black);
+}
+
+.cancel-button:hover {
+  background: #e5e5e5;
+  transform: translateY(-1px);
 }
 
 .loading {
@@ -133,4 +184,56 @@
   text-align: center;
   padding: 1rem;
   margin-top: 1rem;
+  background: #ffe6e6;
+  border-radius: 8px;
+}
+
+/* Add these CSS variables if not already defined in your root */
+:root {
+  --dark-teal: #006666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-container {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .profile-content {
+    padding: 1.5rem;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .edit-button,
+  .save-button,
+  .cancel-button {
+    width: 100%;
+  }
+}
+
+.back-button {
+  padding: 0.5rem 1rem;
+  background: var(--teal);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.back-button:hover {
+  background: var(--dark-teal);
+  transform: translateY(-1px);
+}
+
+.back-button:active {
+  transform: translateY(0);
 }
